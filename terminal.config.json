@@ -1,0 +1,17 @@
+{
+  "activate venv": [
+    {
+      "tab": "main",
+      "commands": ["source venv/bin/activate"],
+      "description": "activates the venv"
+    }
+  ],
+  "setup": [
+    {
+      "tab": "main",
+      "commands": ["python3 -m venv venv"],
+      "description": "set the venv"
+    }
+  ],
+  "test": [{ "tab": "main", "commands": ["python -m unittest tests/test.py"] }]
+}
