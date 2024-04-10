@@ -1,6 +1,6 @@
 import unittest
 import datetime
-from parsers import *
+from cheesebox.parsers import *
 
 class TestParserData(unittest.TestCase):
 
@@ -17,6 +17,11 @@ class TestParserData(unittest.TestCase):
         self.assertEqual(measurement_parser.parse("2 tbsp * 2"), "4 tbsp")
         self.assertEqual(measurement_parser.parse("1/3 cup + 2"), "2 1/3 c")
         self.assertEqual(measurement_parser.parse("2/6 cup + 2"), "2 1/3 c")
+
+        # conditions to convert unit up?
+        self.assertEqual(measurement_parser.parse("2 tsp * 2"), "4 tsp")
+        # self.assertEqual(measurement_parser.parse("2 tsp * 2"), "1 1/3 tbsp")
+
         # self.assertEqual(measurement_parser.parse("invalid expression"))
 
     # def test_time(self):
