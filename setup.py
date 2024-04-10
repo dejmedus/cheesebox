@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "cheesebox = cheesebox.main:main",
+            "cheesebox = main:main",
         ],
     },
 )
