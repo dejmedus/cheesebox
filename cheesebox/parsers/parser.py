@@ -46,9 +46,8 @@ class ParserData:
         for word, symbol in shared_replacers.items():
             expression = expression.replace(word, symbol)
 
-        # if re.match(self.regex, expression):
         if re.search(self.regex, expression):
-            print(f"Using {self.name} parser")
+            # print(f"Using {self.name} parser")
             return self.function(expression)
         return None
 

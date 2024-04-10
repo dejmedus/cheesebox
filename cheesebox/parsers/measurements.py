@@ -11,12 +11,14 @@ def find_unit(expression):
         return match.group(2)
     else:
         return None
+
     
 def calculate(expression):
     try:
         unit = find_unit(expression)
         expression = expression.replace(unit, "")
         result = eval(expression)
+        
         fraction = fractions.Fraction.from_float(result).limit_denominator()
         if fraction.denominator == 1:
             return f'{fraction.numerator} {unit}'
