@@ -12,11 +12,11 @@ class TestParserData(unittest.TestCase):
         self.assertEqual(math_parser.parse("20 divided by 4"), 5)
         # self.assertIsNone(math_parser.parse("invalid expression"))
 
-    # def test_measurements(self):
-    #     self.assertEqual(measurement_parser.parse("1 tsp times 2"), "2 tsp")
-    #     self.assertEqual(measurement_parser.parse("2 tbsp * 2"), "4 tbsp")
-    #     self.assertEqual(measurement_parser.parse("1/3 cup + 2"), "2 1/3 cup")
-    #     self.assertEqual(measurement_parser.parse("2/6 cup + 2"), "2 1/3 cup")
+    def test_measurements(self):
+        self.assertEqual(measurement_parser.parse("1 tsp times 2"), "2 tsp")
+        self.assertEqual(measurement_parser.parse("2 tbsp * 2"), "4 tbsp")
+        self.assertEqual(measurement_parser.parse("1/3 cup + 2"), "2 1/3 c")
+        self.assertEqual(measurement_parser.parse("2/6 cup + 2"), "2 1/3 c")
         # self.assertEqual(measurement_parser.parse("invalid expression"))
 
     # def test_time(self):
