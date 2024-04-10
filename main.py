@@ -13,16 +13,19 @@ else:
 
 def main():
     readline.set_completer(completer)
-    readline.parse_and_bind("tab: complete")
     
     print("Welcome to \U0001FAA4")
     print('Type ".help" for more')
+
+    def exit_message():
+        print("\n\U0001F42D\U0001F44B")
 
     while True:
         try:
             expression = input(">>> ")
 
             if expression.lower() == 'exit':
+                exit_message()
                 break
             elif expression.strip() == '.help':
                 print("\U0001FAA4 Help:")
@@ -36,8 +39,9 @@ def main():
                         break
 
         except KeyboardInterrupt:
-            print("\n\U0001F42D\U0001F44B")
+            exit_message()
             break
+
 
 if __name__ == "__main__":
     main()
