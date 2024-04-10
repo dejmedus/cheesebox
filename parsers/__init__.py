@@ -1,5 +1,5 @@
 """
-This module imports all parsers and creates two lists: all_parsers and completion_words.
+This module imports all parsers [math_parser, measurement_parser].
 
 The all_parsers list contains all imported parsers.
 
@@ -8,7 +8,6 @@ The completion_words list contains all autocompletes from all parsers, sorted al
 
 from .math import math_parser
 from .measurements import measurement_parser
-
 
 all_parsers = [math_parser, measurement_parser]
 
