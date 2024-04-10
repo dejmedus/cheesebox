@@ -4,7 +4,13 @@
     { "tab": "git", "commands": ["clear", "git branch"] },
     {
       "tab": "main",
-      "commands": ["clear"]
+      "commands": ["clear", "python3 -m cheesebox.main"]
+    }
+  ],
+  "run": [
+    {
+      "tab": "main",
+      "commands": ["clear", "python3 -m cheesebox.main"]
     }
   ],
   "test": [
