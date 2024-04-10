@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='cheesebox',
-    version='0.0.1',
+    version='0.0.2',
     packages=find_packages(),
     description='semantic calculations',
     long_description=long_description,
@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "cheesebox = main:main",
+            "cheesebox = cheesebox.main:main",
         ],
     },
 )
