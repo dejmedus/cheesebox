@@ -31,11 +31,23 @@ class ParserData:
         self.autocomplete = autocomplete
         self.function = function
 
+
     def parse(self, expression):
-        for word, symbol in self.replacers.items():
+        shared_replacers = {
+            "plus": "+",
+            "minus": "-",
+            "times": "*",
+            "divided by": "/",
+            "equals": "=",
+            "cup": "c",
+            **self.replacers
+        }
+                
+        for word, symbol in shared_replacers.items():
             expression = expression.replace(word, symbol)
 
-        if re.match(self.regex, expression):
+        # if re.match(self.regex, expression):
+        if re.search(self.regex, expression):
             print(f"Using {self.name} parser")
             return self.function(expression)
         return None
