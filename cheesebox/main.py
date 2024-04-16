@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
+import os
 import readline
 
 from .parsers import *
 from .helpers.completer import completer
-import os
+
 
 if 'libedit' in readline.__doc__:
     readline.parse_and_bind("bind ^I rl_complete")
@@ -21,6 +22,7 @@ def main():
 
     def exit_message():
         print("\n\U0001F42D\U0001F44B")
+        
 
     welcome_message()
 
@@ -44,6 +46,8 @@ def main():
                     if result is not None:
                         print(f"{result}")
                         break
+                if result is None:
+                     print("No parser found")
 
         except KeyboardInterrupt:
             exit_message()
