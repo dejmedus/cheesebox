@@ -1,12 +1,4 @@
 {
-  "open": [
-    { "tab": "zsh", "commands": ["*CLOSE"] },
-    { "tab": "git", "commands": ["clear", "git branch"] },
-    {
-      "tab": "main",
-      "commands": ["clear", "python3 -m cheesebox.main"]
-    }
-  ],
   "run": [
     {
       "tab": "main",
@@ -19,12 +11,15 @@
   "local_package": [
     {
       "tab": "package",
-      "commands": [
-        "clear",
-        "python setup.py sdist bdist_wheel",
-        "pip install dist/cheesebox-0.0.1-py3-none-any.whl --force-reinstall",
-        "cheesebox"
-      ]
+      "commands": ["clear", "bash scripts/update_tarball.sh", "cheesebox"]
+    }
+  ],
+  "open": [
+    { "tab": "zsh", "commands": ["*CLOSE"] },
+    { "tab": "git", "commands": ["clear", "git branch"] },
+    {
+      "tab": "main",
+      "commands": ["clear", "python3 -m cheesebox.main"]
     }
   ],
   "setup": [
