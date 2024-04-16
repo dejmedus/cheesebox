@@ -1,8 +1,8 @@
-from .parser import ParserData
-
 import re
 from fractions import Fraction
 
+from .parser import ParserData
+from ..helpers.exception_handler import exception_handler
 
 def find_unit(expression):
     regex = r"(\d+|)\s*(" + "c|tbsp|tsp|lb|oz|g|ml|l|pt|qt|gal" + r")\b"
@@ -12,23 +12,19 @@ def find_unit(expression):
     else:
         return None
 
-    
+@exception_handler
 def calculate(expression):
-    try:
-        unit = find_unit(expression)
-        expression = expression.replace(unit, "")
-        result = eval(expression)
+    unit = find_unit(expression)
+    expression = expression.replace(unit, "")
+    result = eval(expression)
 
-        whole_part = int(result)
-        fraction_part = Fraction(result - whole_part).limit_denominator()
+    whole_part = int(result)
+    fraction_part = Fraction(result - whole_part).limit_denominator(3)
 
-        if fraction_part:
-            return f'{whole_part} {fraction_part} {unit}'
-        else:
-            return f'{whole_part} {unit}'
-
-    except Exception as e:
-        return f"Error: {str(e)}"
+    if fraction_part:
+        return f'{whole_part} {fraction_part} {unit}'
+    else:
+        return f'{whole_part} {unit}'
     
 
 units = ["c", "tbsp", "tsp", "lb", "oz", "g", "ml", "l", "pt", "qt", "gal"]

@@ -1,15 +1,11 @@
 from .parser import ParserData
+from ..helpers.exception_handler import exception_handler
 
+@exception_handler
 def calculate(expression):
-    try:
-        result = eval(expression)
-        result = float(result)
-        return f"{format(result, '.2f').rstrip('0').rstrip('.')}"
-
-    except SyntaxError:
-        return "✖ Invalid syntax"
-    except Exception as e:
-        return f"Error: {str(e)}"
+    result = eval(expression)
+    result = float(result)
+    return f"{format(result, '.2f').rstrip('0').rstrip('.')}"
     
 math_parser = ParserData(
     name="math",
