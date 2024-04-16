@@ -60,7 +60,6 @@ def handle_fractions(expression):
             decimal = float(Fraction(parts[1]))
             expression = expression.replace(fraction, str(whole_number + decimal))
         else:
-            decimal = round(float(Fraction(fraction)), 2)
+            decimal = float(Fraction(fraction))
             expression = expression.replace(fraction, str(decimal))
-
     return expression
