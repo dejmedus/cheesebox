@@ -2,7 +2,9 @@ from .parser import ParserData
 
 def calculate(expression):
     try:
-        return str(eval(expression))
+        result = eval(expression)
+        result = float(result)
+        return f"{format(result, '.2f').rstrip('0').rstrip('.')}"
 
     except SyntaxError:
         return "✖ Invalid syntax"
