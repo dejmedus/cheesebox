@@ -8,6 +8,7 @@ class TestParserData(unittest.TestCase):
                 
         # result should be in decimals
         self.assertEqual(math_parser.parse("2 plus 2"), "4")
+        self.assertEqual(math_parser.parse("two plus two"), "4")
         self.assertEqual(math_parser.parse("2 + 2"), "4")
         self.assertEqual(math_parser.parse("2.5 + 1"), "3.5")
         self.assertEqual(math_parser.parse("1/2 + 1"), "1.5")
@@ -16,11 +17,12 @@ class TestParserData(unittest.TestCase):
         self.assertEqual(math_parser.parse("10 minus 5"), "5")
         self.assertEqual(math_parser.parse("3 times 3"), "9")
         self.assertEqual(math_parser.parse("20 divided by 4"), "5")
-        self.assertEqual(math_parser.parse("2.4 1 + 4"), None)
+        self.assertEqual(math_parser.parse("2.4 1 + 4"), "✖ Invalid syntax")
 
     def test_measurements(self):
         # result should be in fraction
         self.assertEqual(measurement_parser.parse("1 tsp times 2"), "2 tsp")
+        self.assertEqual(measurement_parser.parse("2 cups plus 2"), "4 c")
         self.assertEqual(measurement_parser.parse("2 tbsp * 2"), "4 tbsp")
         self.assertEqual(measurement_parser.parse("2.5 tbsp * 2"), "5 tbsp")
         self.assertEqual(measurement_parser.parse("1/3 cup + 2"), "2 1/3 c")
@@ -30,7 +32,7 @@ class TestParserData(unittest.TestCase):
         self.assertEqual(measurement_parser.parse("1 1/2 cup * 4"), "6 c")
         self.assertEqual(measurement_parser.parse("1/4 tsp times 4"), "1 tsp")
         self.assertEqual(measurement_parser.parse("2 tsp * 2"), "4 tsp")
-        self.assertEqual(measurement_parser.parse("invalid expression"), None)
+        self.assertEqual(measurement_parser.parse("2 2 4 tsp * 2"), "✖ Invalid syntax")
 
         # conditions to convert unit up?
         # self.assertEqual(measurement_parser.parse("3 tsp * 2"), "1 tbsp") ?
