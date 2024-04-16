@@ -1,7 +1,7 @@
 from .parser import ParserData
 
 import re
-import fractions
+from fractions import Fraction
 
 
 def find_unit(expression):
@@ -18,31 +18,48 @@ def calculate(expression):
         unit = find_unit(expression)
         expression = expression.replace(unit, "")
         result = eval(expression)
-        
-        fraction = fractions.Fraction.from_float(result).limit_denominator()
-        if fraction.denominator == 1:
-            return f'{fraction.numerator} {unit}'
+
+        whole_part = int(result)
+        fraction_part = Fraction(result - whole_part).limit_denominator()
+
+        if fraction_part:
+            return f'{whole_part} {fraction_part} {unit}'
         else:
-            return f'{fraction.numerator // fraction.denominator} {fraction.numerator % fraction.denominator}/{fraction.denominator} {unit}'
+            return f'{whole_part} {unit}'
 
     except Exception as e:
         return f"Error: {str(e)}"
     
+
+units = ["c", "tbsp", "tsp", "lb", "oz", "g", "ml", "l", "pt", "qt", "gal"]
+    
 measurement_parser = ParserData(
-    name="measurments",
-     replacers={
+    name="measurements",
+    replacers={
+        "cups": "c",
+        "cup": "c",
         "tablespoon": "tbsp",
+        "tablespoons": "tbsp",
         "teaspoon": "tsp",
+        "teaspoons": "tsp",
         "pound": "lb",
+        "pounds": "lb",
         "ounce": "oz",
+        "ounces": "oz",
         "gram": "g",
+        "grams": "g",
         "milliliter": "ml",
+        "milliliters": "ml",
         "liter": "l",
+        "liters": "l",
         "pint": "pt",
+        "pints": "pt",
         "quart": "qt",
-        "gallon": "gal"
+        "quarts": "qt",
+        "gallon": "gal",
+        "gallons": "gal"
     },
-    regex = "(\d+|)\s*(" + "c|tbsp|tsp|lb|oz|g|ml|l|pt|qt|gal" + r")\b",
+    regex= r'(\d+\s+(?:' + '|'.join(units) + r'))(?=\s|\b)',
     autocomplete=["cup", "tablespoon", "tbsp", "teaspoon", "tsp", "pound", "lb", "ounce", "oz", "gram", "milliliter", "ml", "liter", "l", "pint", "pt", "quart", "qt", "gallon", "gal"],
     function=calculate
 )
