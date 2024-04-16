@@ -5,13 +5,13 @@ import readline
 
 from .parsers import *
 from .helpers.completer import completer
+from .helpers.round import round_result
 
 
 if 'libedit' in readline.__doc__:
     readline.parse_and_bind("bind ^I rl_complete")
 else:
     readline.parse_and_bind("tab: complete")
-
 
 def main():
     readline.set_completer(completer)
@@ -44,7 +44,7 @@ def main():
                 for parser in all_parsers:
                     result = parser.parse(expression)
                     if result is not None:
-                        print(f"{result}")
+                        print(round_result(result))
                         break
                 if result is None:
                      print("No parser found")
