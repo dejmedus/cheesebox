@@ -19,7 +19,7 @@ def calculate(expression):
     result = eval(expression)
 
     whole_part = int(result)
-    fraction_part = Fraction(result - whole_part).limit_denominator(3)
+    fraction_part = Fraction(result - whole_part).limit_denominator(16)
 
     if fraction_part:
         return f'{whole_part} {fraction_part} {unit}'
