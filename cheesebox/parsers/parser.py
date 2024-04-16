@@ -1,4 +1,7 @@
 import re
+from fractions import Fraction
+from ..replacers import shared_replacers
+
 
 class ParserData:
     """
@@ -31,23 +34,33 @@ class ParserData:
         self.autocomplete = autocomplete
         self.function = function
 
-
     def parse(self, expression):
-        shared_replacers = {
-            "plus": "+",
-            "minus": "-",
-            "times": "*",
-            "divided by": "/",
-            "equals": "=",
-            "cup": "c",
+        all_replacers = {
+            **shared_replacers,
             **self.replacers
         }
-                
-        for word, symbol in shared_replacers.items():
+
+        sorted_replacers = sorted(all_replacers.items(), key=lambda item: len(item[0]), reverse=True)
+
+        for word, symbol in sorted_replacers:
             expression = expression.replace(word, symbol)
 
         if re.search(self.regex, expression):
-            # print(f"Using {self.name} parser")
+            expression = handle_fractions(expression)
             return self.function(expression)
         return None
 
+
+def handle_fractions(expression):
+    mixed_fractions = re.findall(r'\b\d+\s*\d*/\d+\b', expression)
+    for fraction in mixed_fractions:
+        parts = fraction.split()
+        if len(parts) == 2:
+            whole_number = int(parts[0])
+            decimal = float(Fraction(parts[1]))
+            expression = expression.replace(fraction, str(whole_number + decimal))
+        else:
+            decimal = round(float(Fraction(fraction)), 2)
+            expression = expression.replace(fraction, str(decimal))
+
+    return expression
