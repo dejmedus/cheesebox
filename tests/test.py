@@ -4,8 +4,8 @@ from cheesebox.parsers import *
 
 class TestParserData(unittest.TestCase):
 
-    
     def test_math(self):
+                
         # result should be in decimals
         self.assertEqual(math_parser.parse("2 plus 2"), "4")
         self.assertEqual(math_parser.parse("2 + 2"), "4")
@@ -16,7 +16,7 @@ class TestParserData(unittest.TestCase):
         self.assertEqual(math_parser.parse("10 minus 5"), "5")
         self.assertEqual(math_parser.parse("3 times 3"), "9")
         self.assertEqual(math_parser.parse("20 divided by 4"), "5")
-        self.assertEqual(math_parser.parse("2.4 1 + 4"), "")
+        self.assertEqual(math_parser.parse("2.4 1 + 4"), None)
 
     def test_measurements(self):
         # result should be in fraction
@@ -30,7 +30,7 @@ class TestParserData(unittest.TestCase):
         self.assertEqual(measurement_parser.parse("1 1/2 cup * 4"), "6 c")
         self.assertEqual(measurement_parser.parse("1/4 tsp times 4"), "1 tsp")
         self.assertEqual(measurement_parser.parse("2 tsp * 2"), "4 tsp")
-        self.assertEqual(measurement_parser.parse("invalid expression"), "")
+        self.assertEqual(measurement_parser.parse("invalid expression"), None)
 
         # conditions to convert unit up?
         # self.assertEqual(measurement_parser.parse("3 tsp * 2"), "1 tbsp") ?
