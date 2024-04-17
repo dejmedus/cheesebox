@@ -9,6 +9,7 @@ class TestParserData(unittest.TestCase):
         # result should be in decimals
         self.assertEqual(math_parser.parse("2 plus 2"), "4")
         self.assertEqual(math_parser.parse("two plus two"), "4")
+        self.assertEqual(math_parser.parse("one and three quarters plus three"), "4.75")
         self.assertEqual(math_parser.parse("2 + 2"), "4")
         self.assertEqual(math_parser.parse("2.5 + 1"), "3.5")
         self.assertEqual(math_parser.parse("1/2 + 1"), "1.5")
@@ -22,6 +23,7 @@ class TestParserData(unittest.TestCase):
     def test_measurements(self):
         # result should be in fraction
         self.assertEqual(measurement_parser.parse("1 tsp times 2"), "2 tsp")
+        self.assertEqual(measurement_parser.parse("one and three quarters tsp plus one"), "2 3/4 tsp")
         self.assertEqual(measurement_parser.parse("2 cups plus 2"), "4 c")
         self.assertEqual(measurement_parser.parse("2 tbsp * 2"), "4 tbsp")
         self.assertEqual(measurement_parser.parse("2.5 tbsp * 2"), "5 tbsp")
