@@ -1,6 +1,6 @@
 import re
 from fractions import Fraction
-from ..replacers import shared_replacers
+from cheesebox.replacers import shared_replacers
 
 
 class ParserData:
