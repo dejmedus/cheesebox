@@ -13,7 +13,7 @@ def find_unit(expression):
         return None
 
 @exception_handler
-def calculate(expression):
+def calculate(expression: str) -> str:
     unit = find_unit(expression)
     expression = expression.replace(unit, "")
     result = eval(expression)

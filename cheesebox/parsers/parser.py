@@ -11,6 +11,8 @@ class ParserData:
 
     Attributes
     ----------
+    name: str
+        name of the parser
     replacers : dict
         a dictionary mapping words to their corresponding symbols
     regex : str
@@ -18,7 +20,7 @@ class ParserData:
     autocomplete : list
         a list of words for autocomplete functionality
     function : callable
-        a function that is applied to the transformed and validated expression
+        a function that is returns a string
 
     Methods
     -------
@@ -27,7 +29,7 @@ class ParserData:
         and applies the function to it.
     """
         
-    def __init__(self, name, replacers, regex, autocomplete, function):
+    def __init__(self, name: str, replacers: dict[str, str], regex: str, autocomplete: list[str], function):
         self.name = name
         self.replacers = replacers
         self.regex = regex
