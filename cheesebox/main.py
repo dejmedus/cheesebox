@@ -13,14 +13,15 @@ if 'libedit' in readline.__doc__:
 else:
     readline.parse_and_bind("tab: complete")
 
+
 def main():
     readline.set_completer(completer)
-
+    os.system('clear')
     welcome_message()
 
     while True:
         try:
-            expression = input(">>> ")
+            expression = input("> ")
             cleaned_expression = expression.lower().strip()
 
             if cleaned_expression == 'exit' or cleaned_expression == 'quit()':
@@ -39,7 +40,7 @@ def main():
                         print(result)
                         break
                 if result is None:
-                     print("No parser found")
+                    error_message()
 
         except KeyboardInterrupt:
             exit_message()

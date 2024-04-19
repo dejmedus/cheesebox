@@ -12,16 +12,11 @@
     {
       "tab": "package",
       "commands": [
+        "sudo rm /usr/local/bin/cheesebox",
         "clear",
         "pyinstaller --onefile cheesebox/main.py",
         "sudo mv dist/main /usr/local/bin/cheesebox"
       ]
-    }
-  ],
-  "rm_local_package": [
-    {
-      "tab": "package",
-      "commands": ["sudo rm /usr/local/bin/cheesebox"]
     }
   ],
   "open": [

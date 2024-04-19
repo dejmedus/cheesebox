@@ -8,8 +8,9 @@ The completion_words list contains all autocompletes from all parsers, sorted al
 
 from cheesebox.parsers.math import math_parser
 from cheesebox.parsers.measurements import measurement_parser
+from cheesebox.parsers.greetings import greetings_parser
 
-all_parsers = [math_parser, measurement_parser]
+all_parsers = [math_parser, measurement_parser, greetings_parser]
 
 completion_words = []
 for parser in all_parsers:
