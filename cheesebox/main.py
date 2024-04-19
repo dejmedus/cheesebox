@@ -3,9 +3,9 @@
 import os
 import readline
 
-from .parsers import *
-from .helpers.completer import completer
-from .helpers.messages import *
+from cheesebox.parsers import *
+from cheesebox.helpers.completer import completer
+from cheesebox.helpers.messages import *
 
 
 if 'libedit' in readline.__doc__:

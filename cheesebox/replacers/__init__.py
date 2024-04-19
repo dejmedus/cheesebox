@@ -1,10 +1,10 @@
 """
-This module imports all shared replacers: numbers, symbols
+This module imports all shared replacers: numbers, symbols, fractions
 """
 
-from .numbers import number_replacers
-from .symbols import symbol_replacers
-from .fractions import fraction_replacers
+from cheesebox.replacers.numbers import number_replacers
+from cheesebox.replacers.symbols import symbol_replacers
+from cheesebox.replacers.fractions import fraction_replacers
 
 shared_replacers = {
     **number_replacers,
