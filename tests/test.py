@@ -10,6 +10,7 @@ class TestParserData(unittest.TestCase):
         self.assertEqual(math_parser.parse("2 plus 2"), "4")
         self.assertEqual(math_parser.parse("two plus two"), "4")
         self.assertEqual(math_parser.parse("one and three quarters plus three"), "4.75")
+        self.assertEqual(math_parser.parse("two plus two minus one half"), "3.5")
         self.assertEqual(math_parser.parse("2 + 2"), "4")
         self.assertEqual(math_parser.parse("2.5 + 1"), "3.5")
         self.assertEqual(math_parser.parse("1/2 + 1"), "1.5")
