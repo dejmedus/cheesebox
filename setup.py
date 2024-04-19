@@ -7,14 +7,13 @@ setup(
     name='cheesebox',
     version='0.0.2',
     packages=find_packages(),
-    description='semantic calculations',
+    license="MIT",
+    description='A REPL that (somewhat) understands mathematical expressions written in natural language.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='dejmedus',
     author_email='hi@juliab.dev',
     url='https://github.com/dejmedus/cheesebox',
-    install_requires=[
-    ],
     entry_points={
         "console_scripts": [
             "cheesebox = cheesebox.main:main",

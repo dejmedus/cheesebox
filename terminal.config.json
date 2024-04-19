@@ -1,10 +1,8 @@
 {
-  "open": [
-    { "tab": "zsh", "commands": ["*CLOSE"] },
-    { "tab": "git", "commands": ["clear", "git branch"] },
+  "run": [
     {
       "tab": "main",
-      "commands": ["clear"]
+      "commands": ["clear", "python3 -m cheesebox.main"]
     }
   ],
   "test": [
@@ -15,10 +13,23 @@
       "tab": "package",
       "commands": [
         "clear",
-        "python setup.py sdist bdist_wheel",
-        "pip install dist/cheesebox-0.0.1-py3-none-any.whl --force-reinstall",
-        "cheesebox"
+        "pyinstaller --onefile cheesebox/main.py",
+        "sudo mv dist/main /usr/local/bin/cheesebox"
       ]
+    }
+  ],
+  "rm_local_package": [
+    {
+      "tab": "package",
+      "commands": ["sudo rm /usr/local/bin/cheesebox"]
+    }
+  ],
+  "open": [
+    { "tab": "zsh", "commands": ["*CLOSE"] },
+    { "tab": "git", "commands": ["clear", "git branch"] },
+    {
+      "tab": "main",
+      "commands": ["clear", "python3 -m cheesebox.main"]
     }
   ],
   "setup": [
@@ -27,7 +38,7 @@
       "commands": [
         "python3 -m venv venv",
         "source venv/bin/activate",
-        "pip3 install requirements.txt"
+        "pip3 install -r requirements.txt"
       ],
       "description": "set up the venv"
     }

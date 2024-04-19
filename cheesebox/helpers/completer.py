@@ -1,4 +1,4 @@
-from parsers import completion_words
+from cheesebox.parsers import completion_words
 
 def completer(text, state):
     options = [word for word in completion_words if word.startswith(text)]

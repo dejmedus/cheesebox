@@ -4,4 +4,6 @@ __pycache__
 
 build
 dist
-cheesebox.egg-info
+*.egg-info
+*tar.gz
+*.spec

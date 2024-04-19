@@ -6,8 +6,8 @@ The all_parsers list contains all imported parsers.
 The completion_words list contains all autocompletes from all parsers, sorted alphabetically.
 """
 
-from .math import math_parser
-from .measurements import measurement_parser
+from cheesebox.parsers.math import math_parser
+from cheesebox.parsers.measurements import measurement_parser
 
 all_parsers = [math_parser, measurement_parser]
 

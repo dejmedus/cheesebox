@@ -1,8 +1,8 @@
-from .parser import ParserData
-
 import re
-import fractions
+from fractions import Fraction
 
+from cheesebox.parsers.parser import ParserData
+from cheesebox.helpers.exception_handler import exception_handler
 
 def find_unit(expression):
     regex = r"(\d+|)\s*(" + "c|tbsp|tsp|lb|oz|g|ml|l|pt|qt|gal" + r")\b"
@@ -12,37 +12,50 @@ def find_unit(expression):
     else:
         return None
 
-    
+@exception_handler
 def calculate(expression):
-    try:
-        unit = find_unit(expression)
-        expression = expression.replace(unit, "")
-        result = eval(expression)
-        
-        fraction = fractions.Fraction.from_float(result).limit_denominator()
-        if fraction.denominator == 1:
-            return f'{fraction.numerator} {unit}'
-        else:
-            return f'{fraction.numerator // fraction.denominator} {fraction.numerator % fraction.denominator}/{fraction.denominator} {unit}'
+    unit = find_unit(expression)
+    expression = expression.replace(unit, "")
+    result = eval(expression)
 
-    except Exception as e:
-        return f"Error: {str(e)}"
+    whole_part = int(result)
+    fraction_part = Fraction(result - whole_part).limit_denominator(16)
+
+    if fraction_part:
+        return f'{whole_part} {fraction_part} {unit}'
+    else:
+        return f'{whole_part} {unit}'
+    
+
+units = ["c", "tbsp", "tsp", "lb", "oz", "g", "ml", "l", "pt", "qt", "gal"]
     
 measurement_parser = ParserData(
-    name="measurments",
-     replacers={
+    name="measurements",
+    replacers={
+        "cups": "c",
+        "cup": "c",
         "tablespoon": "tbsp",
+        "tablespoons": "tbsp",
         "teaspoon": "tsp",
+        "teaspoons": "tsp",
         "pound": "lb",
+        "pounds": "lb",
         "ounce": "oz",
+        "ounces": "oz",
         "gram": "g",
+        "grams": "g",
         "milliliter": "ml",
+        "milliliters": "ml",
         "liter": "l",
+        "liters": "l",
         "pint": "pt",
+        "pints": "pt",
         "quart": "qt",
-        "gallon": "gal"
+        "quarts": "qt",
+        "gallon": "gal",
+        "gallons": "gal"
     },
-    regex = "(\d+|)\s*(" + "c|tbsp|tsp|lb|oz|g|ml|l|pt|qt|gal" + r")\b",
+    regex= r'(\d+\s+(?:' + '|'.join(units) + r'))(?=\s|\b)',
     autocomplete=["cup", "tablespoon", "tbsp", "teaspoon", "tsp", "pound", "lb", "ounce", "oz", "gram", "milliliter", "ml", "liter", "l", "pint", "pt", "quart", "qt", "gallon", "gal"],
     function=calculate
 )
