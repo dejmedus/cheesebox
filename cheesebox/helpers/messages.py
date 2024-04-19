@@ -1,10 +1,20 @@
 
+colors = {
+    'red': '\033[91m',
+    'gray': '\033[90m',
+    'reset': '\033[0m',
+}
+
 def welcome_message():
-    print("Welcome to \U0001FAA4")
+    print(colors['gray'] + "Welcome to \U0001FAA4")
     print('Type ".help" for more')
+    print(colors["reset"])
 
 def exit_message():
     print("\n\U0001F42D\U0001F44B")
+
+def error_message():
+    print("✖ Could not parse input")
 
 def help_message():
     print("\U0001FAA4  Help:")
