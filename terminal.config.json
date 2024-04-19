@@ -11,7 +11,17 @@
   "local_package": [
     {
       "tab": "package",
-      "commands": ["clear", "bash scripts/update_tarball.sh", "cheesebox"]
+      "commands": [
+        "clear",
+        "pyinstaller --onefile cheesebox/main.py",
+        "sudo mv dist/main /usr/local/bin/cheesebox"
+      ]
+    }
+  ],
+  "rm_local_package": [
+    {
+      "tab": "package",
+      "commands": ["sudo rm /usr/local/bin/cheesebox"]
     }
   ],
   "open": [
@@ -28,7 +38,7 @@
       "commands": [
         "python3 -m venv venv",
         "source venv/bin/activate",
-        "pip3 install requirements.txt"
+        "pip3 install -r requirements.txt"
       ],
       "description": "set up the venv"
     }
