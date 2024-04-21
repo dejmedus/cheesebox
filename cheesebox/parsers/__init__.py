@@ -14,6 +14,5 @@ all_parsers = [math_parser, measurement_parser, greetings_parser]
 
 completion_words = []
 for parser in all_parsers:
+    parser.autocomplete.sort()
     completion_words.extend(parser.autocomplete)
-
-completion_words.sort()
