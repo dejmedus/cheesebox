@@ -18,6 +18,7 @@ def main():
     readline.set_completer(completer)
     os.system('clear')
     welcome_message()
+    
 
     while True:
         try:
@@ -30,7 +31,7 @@ def main():
             elif cleaned_expression == 'clear':
                 os.system('clear')
                 welcome_message()
-            elif cleaned_expression == '.help':
+            elif cleaned_expression == 'help':
                 os.system('clear')
                 help_message()
             else:
