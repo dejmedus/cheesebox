@@ -3,8 +3,10 @@ import os
 colors = {
     'red': '\033[91m',
     'gray': '\033[90m',
+    'light_gray': '\033[97m',
     'reset': '\033[0m',
 }
+
 
 def welcome_message():
     print(colors['gray'] + "Welcome to \U0001FAA4")
