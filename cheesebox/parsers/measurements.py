@@ -22,7 +22,10 @@ def calculate(expression: str) -> str:
     fraction_part = Fraction(result - whole_part).limit_denominator(16)
 
     if fraction_part:
-        return f'{whole_part} {fraction_part} {unit}'
+        if whole_part == 0:
+            return f'{fraction_part} {unit}'
+        else:
+            return f'{whole_part} {fraction_part} {unit}'
     else:
         return f'{whole_part} {unit}'
     
