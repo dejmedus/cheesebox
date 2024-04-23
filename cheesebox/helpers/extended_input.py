@@ -16,7 +16,8 @@ def extended_input(history, history_index):
         while True:
             char = readkey()
             if char == key.ENTER:
-                if current_input.strip() != "":
+                current_input = current_input.strip()
+                if current_input != "":
                     print_line(current_input + "\n", cursor_x=-3)
                     add_to_history(history, current_input)
                     history_index = 0
@@ -44,6 +45,22 @@ def extended_input(history, history_index):
                     history_index -= 1
                     current_input = history[history_index]
                     cursor_x = len(current_input)
+            elif char == key.CTRL_A:
+                # jump to start
+                cursor_x = 0
+            elif char == key.CTRL_E:
+                # jump to end
+                cursor_x = len(current_input.strip())
+            elif char == key.CTRL_W:
+                # delete the word before the cursor
+                word_before_cursor = current_input[:cursor_x].split(" ")[-1]
+                word_start_index = cursor_x - len(word_before_cursor)
+                current_input = current_input[:word_start_index] + current_input[cursor_x:]
+                cursor_x = word_start_index
+            elif char == key.CTRL_U:
+                # delete everything before cursor
+                current_input = current_input[cursor_x:]
+                cursor_x = 0
             else:
                 current_input = insert(current_input, char, cursor_x)
                 cursor_x += 1
@@ -74,7 +91,7 @@ def get_autocomplete_suffix(current_input, cursor_x):
 
 def add_to_history(history, str):
     history.pop(0)
-    history.insert(0, " ")
+    history.insert(0, "")
     history.insert(1, str)
            
 def insert(current_input, str, cursor_x):
