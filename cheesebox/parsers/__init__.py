@@ -13,7 +13,7 @@ from cheesebox.parsers.catch_all import catch_all_parser
 
 all_parsers = [math_parser, measurement_parser, catch_all_parser, greetings_parser]
 
-completion_words = []
+completion_words = ['clear', 'exit', 'help']
 for parser in all_parsers:
     parser.autocomplete.sort()
     completion_words.extend(parser.autocomplete)
