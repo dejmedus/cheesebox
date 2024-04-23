@@ -5,7 +5,7 @@ from cheesebox.helpers.messages import colors
 from cheesebox.parsers import completion_words
 
 
-def extended_input():
+def extended_input(history, history_index):
     current_input = ""
     current_suffix = ""
     cursor_x = 0
@@ -15,12 +15,17 @@ def extended_input():
 
         while True:
             char = readkey()
-            if char == key.ENTER and current_input:
-                print_line(current_input + "\n", cursor_x=-3)
-                return current_input
+            if char == key.ENTER:
+                if current_input.strip() != "":
+                    print_line(current_input + "\n", cursor_x=-3)
+                    add_to_history(history, current_input)
+                    history_index = 0
+                    return current_input
             elif char == key.TAB:
-                current_input = insert(current_input, current_suffix, cursor_x)
-                cursor_x += len(current_suffix)
+                if current_suffix:
+                    current_input = insert(current_input, current_suffix, cursor_x)
+                    cursor_x += len(current_suffix)
+                    current_suffix = ""
             elif char == key.BACKSPACE:
                 if current_input and cursor_x > 0:
                     current_input = current_input[:cursor_x-1] + current_input[cursor_x:]
@@ -29,9 +34,16 @@ def extended_input():
                 cursor_x = min(len(current_input), cursor_x + 1)
             elif char == key.LEFT:
                 cursor_x = max(0, cursor_x - 1)
-            elif char == key.UP or char == key.DOWN:
-                # prevent use of up/down keys
-                pass
+            elif char == key.UP:
+                if history_index < len(history) -1:
+                    history_index += 1
+                    current_input = history[history_index]
+                    cursor_x = len(current_input)
+            elif char == key.DOWN:
+                if history_index > 0:
+                    history_index -= 1
+                    current_input = history[history_index]
+                    cursor_x = len(current_input)
             else:
                 current_input = insert(current_input, char, cursor_x)
                 cursor_x += 1
@@ -45,6 +57,7 @@ def extended_input():
                 print_line(autocomplete_hint, cursor_x)
             else:
                 print_line(current_input, cursor_x)
+
     except KeyboardInterrupt:
         # we want the outer function to handle ctrl+c
         raise KeyboardInterrupt
@@ -59,6 +72,11 @@ def get_autocomplete_suffix(current_input, cursor_x):
             
     return ""
 
+def add_to_history(history, str):
+    history.pop(0)
+    history.insert(0, " ")
+    history.insert(1, str)
+           
 def insert(current_input, str, cursor_x):
     return current_input[:cursor_x] + str + current_input[cursor_x:]
 
