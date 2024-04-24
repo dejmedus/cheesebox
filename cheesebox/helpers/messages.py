@@ -1,16 +1,17 @@
+import os 
 
 colors = {
     'red': '\033[91m',
     'gray': '\033[90m',
+    'light_gray': '\033[97m',
     'reset': '\033[0m',
 }
 
+
 def welcome_message():
     print(colors['gray'] + "Welcome to \U0001FAA4")
-    print('Type ".help" for more')
+    print('Type "help" for more')
     print(colors["reset"])
-
-import os 
 
 def exit_message():
     # try/except loop so the executable doesn't error on ctrl+c 
@@ -23,8 +24,11 @@ def exit_message():
 def error_message():
     print("✖ Could not parse input")
 
+
 def help_message():
-    print("\U0001FAA4  Help:")
+    print(colors['gray'] + "\U0001FAA4 Help:")
+    print(colors["reset"])
+
     print("Type 'exit' to quit.\n")
     print("Usage: ")
 

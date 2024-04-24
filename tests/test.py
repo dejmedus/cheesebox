@@ -35,6 +35,7 @@ class TestParserData(unittest.TestCase):
         self.assertEqual(measurement_parser.parse("1 1/2 cup * 4"), "6 c")
         self.assertEqual(measurement_parser.parse("1/4 tsp times 4"), "1 tsp")
         self.assertEqual(measurement_parser.parse("2 tsp * 2"), "4 tsp")
+        self.assertEqual(measurement_parser.parse("1/2 tsp * 3/4  "), "3/8 tsp")
         self.assertEqual(measurement_parser.parse("2 2 4 tsp * 2"), "✖ Invalid syntax")
 
         # conditions to convert unit up?
