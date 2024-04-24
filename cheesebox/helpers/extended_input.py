@@ -21,6 +21,7 @@ def extended_input():
             if char == key.ENTER:
                 current_input = current_input.strip()
                 if current_input != "":
+                    # cursor_x = -3 to account for lack of "> "
                     print_line(current_input + "\n", cursor_x=-3)
                     add_to_history(history, current_input)
                     history_index = 0
@@ -40,6 +41,7 @@ def extended_input():
                 cursor_x = max(0, cursor_x - 1)
             elif char == key.UP:
                 if history_index < len(history) -1:
+                    history_index == 0 and add_to_temp_history(history, current_input)
                     history_index += 1
                     current_input = history[history_index]
                     cursor_x = len(current_input)
@@ -96,6 +98,10 @@ def add_to_history(history, str):
     history.pop(0)
     history.insert(0, "")
     history.insert(1, str)
+
+def add_to_temp_history(history, str):
+    history.pop(0)
+    history.insert(0, str)
            
 def insert(current_input, str, cursor_x):
     return current_input[:cursor_x] + str + current_input[cursor_x:]
