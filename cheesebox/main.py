@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import readline
 
 from cheesebox.parsers import *
 from cheesebox.helpers.messages import *
@@ -9,14 +8,12 @@ from cheesebox.helpers.extended_input import extended_input
 
 
 def main():
-    history = [""]
-    history_index = 0
     os.system('clear')
     welcome_message()
 
     while True:
         try:
-            expression = extended_input(history, history_index)
+            expression = extended_input()
             cleaned_expression = expression.lower().strip()
 
             if cleaned_expression == 'exit' or cleaned_expression == 'quit()':

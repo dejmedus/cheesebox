@@ -4,8 +4,11 @@ from readchar import readkey, key
 from cheesebox.helpers.messages import colors
 from cheesebox.parsers import completion_words
 
+history = [""]
+history_index = 0
 
-def extended_input(history, history_index):
+def extended_input():
+    global history_index, history
     current_input = ""
     current_suffix = ""
     cursor_x = 0
