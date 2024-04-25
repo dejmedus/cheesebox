@@ -25,21 +25,28 @@ class TestParserData(unittest.TestCase):
         # result should be in fraction
         self.assertEqual(measurement_parser.parse("1 tsp times 2"), "2 tsp")
         self.assertEqual(measurement_parser.parse("one and three quarters tsp plus one"), "2 3/4 tsp")
-        self.assertEqual(measurement_parser.parse("2 cups plus 2"), "4 c")
-        self.assertEqual(measurement_parser.parse("2 tbsp * 2"), "4 tbsp")
-        self.assertEqual(measurement_parser.parse("2.5 tbsp * 2"), "5 tbsp")
+        self.assertEqual(measurement_parser.parse("2 tsp * 2"), "1 1/3 tbsp")
         self.assertEqual(measurement_parser.parse("1/3 cup + 2"), "2 1/3 c")
         self.assertEqual(measurement_parser.parse("0.33 cup + 2"), "2 1/3 c")
         self.assertEqual(measurement_parser.parse("0.5 cup + 1"), "1 1/2 c")
         self.assertEqual(measurement_parser.parse("2/6 cup + 2"), "2 1/3 c")
-        self.assertEqual(measurement_parser.parse("1 1/2 cup * 4"), "6 c")
         self.assertEqual(measurement_parser.parse("1/4 tsp times 4"), "1 tsp")
-        self.assertEqual(measurement_parser.parse("2 tsp * 2"), "4 tsp")
         self.assertEqual(measurement_parser.parse("1/2 tsp * 3/4  "), "3/8 tsp")
+        self.assertEqual(measurement_parser.parse("48 tsp"), "1 c")
+        self.assertEqual(measurement_parser.parse("3 tsp * 4"), "4 tbsp")
+        self.assertEqual(measurement_parser.parse("2 tbsp * 8"), "1 c")
+        self.assertEqual(measurement_parser.parse("4 qt"), "1 gal")
+        self.assertEqual(measurement_parser.parse("2000 g"), "2 kg")
+        self.assertEqual(measurement_parser.parse("3000 ml"), "3 l")
         self.assertEqual(measurement_parser.parse("2 2 4 tsp * 2"), "✖ Invalid syntax")
 
-        # conditions to convert unit up?
-        # self.assertEqual(measurement_parser.parse("3 tsp * 2"), "1 tbsp") ?
+    def test_conversion(self):
+        self.assertEqual(conversion_parser.parse("16tsp to cups"), "1/3 c")
+        self.assertEqual(conversion_parser.parse("16 tsp to cup"), "1/3 c")
+        self.assertEqual(conversion_parser.parse("4 * 4 tsp to cup"), "1/3 c")
+        self.assertEqual(conversion_parser.parse("2 * 4 + 8 tsps to cups"), "1/3 c")
+        self.assertEqual(conversion_parser.parse("2*4+8tsps to c"), "1/3 c")
+
 
     # def test_time(self):
     #     self.assertEqual(time_parser.parse("1:00 + 30 mins"), "1:30")
