@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='cheesebox',
-    version='0.0.2',
+    version='0.0.21',
     packages=find_packages(),
     license="MIT",
     description='A REPL that (somewhat) understands mathematical expressions written in natural language.',

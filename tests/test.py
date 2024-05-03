@@ -2,44 +2,57 @@ import unittest
 import datetime
 from cheesebox.parsers import *
 
+def parsed(expression):
+    for parser in all_parsers:
+        result = parser.parse(expression)
+        if result is not None:
+            return result
+
 class TestParserData(unittest.TestCase):
 
     def test_math(self):
                 
         # result should be in decimals
-        self.assertEqual(math_parser.parse("2 plus 2"), "4")
-        self.assertEqual(math_parser.parse("two plus two"), "4")
-        self.assertEqual(math_parser.parse("one and three quarters plus three"), "4.75")
-        self.assertEqual(math_parser.parse("two plus two minus one half"), "3.5")
-        self.assertEqual(math_parser.parse("2 + 2"), "4")
-        self.assertEqual(math_parser.parse("2.5 + 1"), "3.5")
-        self.assertEqual(math_parser.parse("1/2 + 1"), "1.5")
-        self.assertEqual(math_parser.parse("1 1/2 + 1"), "2.5")
-        self.assertEqual(math_parser.parse("1 1/2 plus 1"), "2.5")
-        self.assertEqual(math_parser.parse("10 minus 5"), "5")
-        self.assertEqual(math_parser.parse("3 times 3"), "9")
-        self.assertEqual(math_parser.parse("20 divided by 4"), "5")
-        self.assertEqual(math_parser.parse("2.4 1 + 4"), "✖ Invalid syntax")
+        self.assertEqual(parsed("2 plus 2"), "4")
+        self.assertEqual(parsed("two plus two"), "4")
+        self.assertEqual(parsed("one and three quarters plus three"), "4.75")
+        self.assertEqual(parsed("two plus two minus one half"), "3.5")
+        self.assertEqual(parsed("2 + 2"), "4")
+        self.assertEqual(parsed("2.5 + 1"), "3.5")
+        self.assertEqual(parsed("1/2 + 1"), "1.5")
+        self.assertEqual(parsed("1 1/2 + 1"), "2.5")
+        self.assertEqual(parsed("1 1/2 plus 1"), "2.5")
+        self.assertEqual(parsed("10 minus 5"), "5")
+        self.assertEqual(parsed("3 times 3"), "9")
+        self.assertEqual(parsed("20 divided by 4"), "5")
+        self.assertEqual(parsed("2.4 1 + 4"), "✖ Invalid syntax")
 
     def test_measurements(self):
         # result should be in fraction
-        self.assertEqual(measurement_parser.parse("1 tsp times 2"), "2 tsp")
-        self.assertEqual(measurement_parser.parse("one and three quarters tsp plus one"), "2 3/4 tsp")
-        self.assertEqual(measurement_parser.parse("2 cups plus 2"), "4 c")
-        self.assertEqual(measurement_parser.parse("2 tbsp * 2"), "4 tbsp")
-        self.assertEqual(measurement_parser.parse("2.5 tbsp * 2"), "5 tbsp")
-        self.assertEqual(measurement_parser.parse("1/3 cup + 2"), "2 1/3 c")
-        self.assertEqual(measurement_parser.parse("0.33 cup + 2"), "2 1/3 c")
-        self.assertEqual(measurement_parser.parse("0.5 cup + 1"), "1 1/2 c")
-        self.assertEqual(measurement_parser.parse("2/6 cup + 2"), "2 1/3 c")
-        self.assertEqual(measurement_parser.parse("1 1/2 cup * 4"), "6 c")
-        self.assertEqual(measurement_parser.parse("1/4 tsp times 4"), "1 tsp")
-        self.assertEqual(measurement_parser.parse("2 tsp * 2"), "4 tsp")
-        self.assertEqual(measurement_parser.parse("1/2 tsp * 3/4  "), "3/8 tsp")
-        self.assertEqual(measurement_parser.parse("2 2 4 tsp * 2"), "✖ Invalid syntax")
+        self.assertEqual(parsed("1 tsp times 2"), "2 tsp")
+        self.assertEqual(parsed("one and three quarters tsp plus one"), "2 3/4 tsp")
+        self.assertEqual(parsed("2 tsp * 2"), "1 1/3 tbsp")
+        self.assertEqual(parsed("1/3 cup + 2"), "2 1/3 c")
+        self.assertEqual(parsed("0.33 cup + 2"), "2 1/3 c")
+        self.assertEqual(parsed("0.5 cup + 1"), "1 1/2 c")
+        self.assertEqual(parsed("2/6 cup + 2"), "2 1/3 c")
+        self.assertEqual(parsed("1/4 tsp times 4"), "1 tsp")
+        self.assertEqual(parsed("1/2 tsp * 3/4  "), "3/8 tsp")
+        self.assertEqual(parsed("48 tsp"), "1 c")
+        self.assertEqual(parsed("3 tsp * 4"), "4 tbsp")
+        self.assertEqual(parsed("2 tbsp * 8"), "1 c")
+        self.assertEqual(parsed("4 qt"), "1 gal")
+        self.assertEqual(parsed("2000 g"), "2 kg")
+        self.assertEqual(parsed("3000 ml"), "3 l")
+        self.assertEqual(parsed("2 2 4 tsp * 2"), "✖ Invalid syntax")
 
-        # conditions to convert unit up?
-        # self.assertEqual(measurement_parser.parse("3 tsp * 2"), "1 tbsp") ?
+    def test_conversion(self):
+        self.assertEqual(parsed("16tsp to cups"), "1/3 c")
+        self.assertEqual(parsed("16 tsp to cup"), "1/3 c")
+        self.assertEqual(parsed("4 * 4 tsp to cup"), "1/3 c")
+        self.assertEqual(parsed("2 * 4 + 8 tsps to cups"), "1/3 c")
+        self.assertEqual(parsed("2*4+8tsps to c"), "1/3 c")
+
 
     # def test_time(self):
     #     self.assertEqual(time_parser.parse("1:00 + 30 mins"), "1:30")
