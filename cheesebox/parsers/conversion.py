@@ -188,7 +188,7 @@ unit_conversions = {
         "oz": 16,
     },
 }
-
+units = ["c", "tbsp", "tsp", "lb", "oz", "g", "ml", "l", "pt", "qt", "gal"]
 
 def convert(quantity, original_unit, unit):
     if original_unit == unit:
@@ -224,8 +224,6 @@ def calculate(expression: str) -> str:
     else:
         return f'{whole_part} {unit}'
     
-
-units = ["c", "tbsp", "tsp", "lb", "oz", "g", "ml", "l", "pt", "qt", "gal"]
     
 conversion_parser = ParserData(
     name="unit conversion",
