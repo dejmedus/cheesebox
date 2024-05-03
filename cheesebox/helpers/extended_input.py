@@ -34,7 +34,7 @@ def extended_input():
             elif char == key.BACKSPACE:
                 if current_input and cursor_x > 0:
                     current_input = current_input[:cursor_x-1] + current_input[cursor_x:]
-                    cursor_x = max(0, cursor_x - 1)
+                    cursor_x -= 1
             elif char == key.RIGHT:
                 cursor_x = min(len(current_input), cursor_x + 1)
             elif char == key.LEFT:
@@ -70,7 +70,7 @@ def extended_input():
                 current_input = insert(current_input, char, cursor_x)
                 cursor_x += 1
 
-            autocomplete = current_input and (len(current_input) == 1 or len(current_input) > 1 and current_input[-1] != " ") and get_autocomplete_suffix(current_input, cursor_x)
+            autocomplete = current_input and (len(current_input) > 1 and current_input[-1] != " ") and get_autocomplete_suffix(current_input, cursor_x)
 
             # isprintable prevents autocomplete on backspace/right/left keys
             if autocomplete and char.isprintable():
@@ -98,6 +98,7 @@ def add_to_history(history, str):
     history.pop(0)
     history.insert(0, "")
     history.insert(1, str)
+
 
 def add_to_temp_history(history, str):
     history.pop(0)
